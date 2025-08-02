@@ -1,0 +1,532 @@
+<html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media & Collaborazioni | ChrisMagic22</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <style>
+ header {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .header-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #FF1A1A;
+            text-decoration: none;
+        }
+        
+        .logo i {
+            font-size: 1.8rem;
+            margin-right: 10px;
+            color: #FF1A1A;
+        }
+        
+        .logo span {
+            color: #0F0F0F;
+        }
+        
+        /* Nav menu migliorato */
+        nav#main-nav {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-list {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 2rem;
+        }
+        
+        .nav-list li a {
+            color: #0F0F0F;
+            font-weight: 500;
+            font-size: 1rem;
+            text-decoration: none;
+            padding: 8px 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-list li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #FF1A1A;
+            bottom: 0;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-list li a:hover,
+        .nav-list li a.active {
+            color: #FF1A1A;
+        }
+        
+        .nav-list li a:hover::after,
+        .nav-list li a.active::after {
+            width: 100%;
+        }
+        
+        /* Mobile menu button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #0F0F0F;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 10px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0 16px;
+            }
+            
+            nav#main-nav {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(10px);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                transform: translateY(-150%);
+                transition: transform 0.4s ease;
+                z-index: 999;
+            }
+            
+            nav#main-nav.active {
+                transform: translateY(0);
+            }
+            
+            .nav-list {
+                flex-direction: column;
+                align-items: center;
+                gap: 1.5rem;
+                width: 100%;
+            }
+            
+            .nav-list li {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-list li a {
+                padding: 12px 0;
+                display: block;
+                width: 100%;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+        .media-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+        
+        .media-tab {
+            padding: 10px 25px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .media-tab:hover, .media-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .media-content {
+            display: none;
+        }
+        
+        .media-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .media-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .media-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 26, 26, 0.3);
+        }
+        
+        .media-source {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .media-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+        
+        .media-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .partner-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .partner-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 150px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .partner-card:hover {
+            transform: scale(1.05);
+            background: rgba(255, 26, 26, 0.1);
+        }
+        
+        .partner-logo {
+            max-width: 100%;
+            max-height: 70px;
+            margin-bottom: 15px;
+            filter: grayscale(100%) brightness(2);
+            transition: filter 0.3s ease;
+        }
+        
+        .partner-card:hover .partner-logo {
+            filter: grayscale(0) brightness(1);
+        }
+        
+        .press-kit {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 50px;
+            text-align: center;
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+        /* Aggiungi questo stile per l'overlay */
+        .construction-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .construction-content {
+            background: rgba(255, 26, 26, 0.3);
+            padding: 40px;
+            border-radius: 12px;
+            border: 2px solid var(--primary);
+            max-width: 600px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .construction-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .construction-title {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .construction-text {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .construction-btn {
+            background: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .construction-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        /* Il resto del tuo CSS esistente rimane invariato */
+        .media-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+        
+        
+        /* ... altri stili esistenti ... */
+    </style>
+</head>
+<body>
+    <!-- Aggiungi questo div come primo elemento nel body -->
+    <div class="construction-overlay">
+        <div class="construction-content">
+            <div class="construction-icon">
+                <i class="fas fa-tools"></i>
+            </div>
+            <h2 class="construction-title">Pagina in Lavorazione</h2>
+            <p class="construction-text">Stiamo lavorando per migliorare questa sezione! Tornerà presto disponibile con nuovi contenuti e funzionalità.</p>
+            <p class="construction-text">Nel frattempo, puoi ancora accedere al contenuto esistente chiudendo questo messaggio.</p>
+            <button onclick="closeOverlay()" class="construction-btn">
+                <i class="fas fa-eye"></i> Mostra comunque il contenuto
+            </button>
+        </div>
+    </div>
+
+    <!-- Header -->
+   <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <i class="fab fa-youtube"></i>
+                <span>ChrisMagic22</span>
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav id="main-nav">
+                <ul class="nav-list">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="biografia.html">Biografia</a></li>
+                    <li><a href="contenuti.html">Contenuti</a></li>
+                    <li><a href="media.html" class="active">Media</a></li>
+                      <li><a href="contatti.html">Contatti</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Media -->
+    <section class="hero" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/media-hero.jpg')">
+        <div class="hero-content">
+            <h1>Media & Collaborazioni</h1>
+            <p>Interviste, articoli e partnership </p>
+        </div>
+    </section>
+
+    <!-- Media Content -->
+    <section class="section" style="background: var(--dark-bg); color: white;">
+        <div class="container">
+            <div class="media-tabs">
+                <div class="media-tab active" data-tab="interviste">Interviste</div>
+                <div class="media-tab" data-tab="articoli">Articoli</div>
+                <div class="media-tab" data-tab="collaborazioni">Collaborazioni</div>
+                <div class="media-tab" data-tab="eventi">Eventi</div>
+            </div>
+            
+            <div id="interviste" class="media-content active">
+                <div class="media-item">
+                    <div class="media-source">
+                        <div class="media-logo">
+                            <img src="images/logo-gamingworld.png">
+                        </div>
+                        <div>
+                            <h3></h3>
+                            <p></p>
+                        </div>
+                    </div>
+                    <h4></h4>
+                    <p></p>
+                    <a href="#" class="btn btn-outline">
+                        <i class="fas fa-external-link-alt"></i> ....
+                    </a>
+                </div>
+                
+                <div class="media-item">
+                    <div class="media-source">
+                        <div class="media-logo">
+                            <img src="images/logo-podcast.png" >
+                        </div>
+                        <div>
+                            <h3></h3>
+                            <p></p>
+                        </div>
+                    </div>
+                    <h4>""</h4>
+                    <p></p>
+                    <a href="#" class="btn btn-outline">
+                        <i class="fas fa-headphones"></i> ...
+                    </a>
+                </div>
+            </div>
+            
+            <div id="articoli" class="media-content">
+                <div class="media-item">
+                    <div class="media-source">
+                        <div class="media-logo">
+                            <img src="images/logo-tech.png" >
+                        </div>
+                        <div>
+                            <h3></h3>
+                            <p></p>
+                        </div>
+                    </div>
+                    <h4>"</h4>
+                    <p></p>
+                    <a href="#" class="btn btn-outline">
+                        <i class="fas fa-external-link-alt"></i> ....
+                    </a>
+                </div>
+            </div>
+            
+            <div id="collaborazioni" class="media-content">
+                <h3 class="section-subtitle">....</h3>
+                <div class="partner-grid">
+                    <div class="partner-card">
+                        <img src="images/logo-logitech.png" alt="Logitech" class="partner-logo">
+                    </div>
+                    <div class="partner-card">
+                        <img src="images/logo-nvidia.png" alt="NVIDIA" class="partner-logo">
+                    </div>
+                    <div class="partner-card">
+                        <img src="images/logo-razer.png" alt="Razer" class="partner-logo">
+                    </div>
+                    <div class="partner-card">
+                        <img src="images/logo-epic.png" alt="Epic Games" class="partner-logo">
+                    </div>
+                </div>
+            </div>
+            
+            <div id="eventi" class="media-content">
+                <div class="media-item">
+                    <div class="media-source">
+                        <div class="media-logo">
+                            <img src="images/logo-gamesweek.png" >
+                        </div>
+                        <div>
+                            <h3></h3>
+                            <p></p>
+                        </div>
+                    </div>
+                    <h4></h4>
+                    <p></p>
+                    <a href="#" class="btn btn-outline">
+                        <i class="fas fa-images"></i>...
+                    </a>
+                </div>
+            </div>
+            
+            <div class="press-kit">
+                <h3></h3>
+                <p></p>
+                <a href="#" class="btn">
+                    <i class="fas fa-download"></i> ....
+                </a>
+            </div>
+        </div>
+    </section>
+
+<footer class="animated delay-3">
+            &copy; 2025 Sito Realizzato completamente da 0xtonybin  - Tutti i diritti riservati
+        </footer>
+
+    <script>
+        // Aggiungi questa funzione per chiudere l'overlay
+        function closeOverlay() {
+            document.querySelector('.construction-overlay').style.display = 'none';
+        }
+
+        // Il resto del tuo JavaScript esistente
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mainNav = document.getElementById('main-nav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Tab system (se presente nella tua pagina)
+        const mediaTabs = document.querySelectorAll('.media-tab');
+        // ... resto del codice ...
+    </script>
+     <script src="scripts/main.js"></script>
+</body>
+</html>
