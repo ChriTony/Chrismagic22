@@ -472,6 +472,42 @@
     <footer class="animated delay-3">
             &copy; 2025 Sito Realizzato completamente da 0xtonybin  - Tutti i diritti riservati
         </footer>
+    <form id="contatto-form">
+  <input type="text" name="nome" placeholder="Il tuo nome" required>
+  <input type="email" name="email" placeholder="La tua email" required>
+  <textarea name="messaggio" placeholder="Il tuo messaggio" required></textarea>
+  <button type="submit">Invia</button>
+</form>
+
+<script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+
+  const supabase = createClient(
+    'https://bvkjigouurogkrgsztyl.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2a2ppZ291dXJvZ2tyZ3N6dHlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQyMzYxNDQsImV4cCI6MjA2OTgxMjE0NH0.9fEzleogdBYQl53lsOaSV39LLWP_JzuDEex_ePhJrro'
+  )
+
+  document.getElementById('contatto-form').addEventListener('submit', async (e) => {
+    e.preventDefault()
+
+    const form = e.target
+    const nome = form.nome.value
+    const email = form.email.value
+    const messaggio = form.messaggio.value
+
+    const { error } = await supabase.from('messaggi').insert([
+      { nome, email, messaggio }
+    ])
+
+    if (error) {
+      alert('Errore durante l\'invio: ' + error.message)
+    } else {
+      alert('Messaggio inviato con successo!')
+      form.reset()
+    }
+  })
+</script>
+
 <script>
         // Mobile menu toggle
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
@@ -484,41 +520,14 @@
                 : '<i class="fas fa-bars"></i>';
         });
 </script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-<script>
-  // Inizializza Supabase
-  const supabase = supabase.createClient('https://bvkjigouurogkrgsztyl.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2a2ppZ291dXJvZ2tyZ3N6dHlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQyMzYxNDQsImV4cCI6MjA2OTgxMjE0NH0.9fEzleogdBYQl53lsOaSV39LLWP_JzuDEex_ePhJrro');
 
-  document.getElementById('contactForm').addEventListener('submit', async function (e) {
-    e.preventDefault();
-
-    // Ottieni i dati dal form
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const subject = document.getElementById('subject').value;
-    const message = document.getElementById('message').value.trim();
-
-    // Invia a Supabase
-    const { data, error } = await supabase
-      .from('contatti')
-      .insert([
-        { nome: name, email: email, oggetto: subject, messaggio: message }
-      ]);
-
-    if (error) {
-      alert('Errore durante l’invio: ' + error.message);
-    } else {
-      alert('Grazie per il tuo messaggio! Ti risponderemo al più presto.');
-      this.reset();
-    }
-  });
-</script>
 
 
     <script src="main.js"></script>
 </body>
 
 </html>
+
 
 
 
