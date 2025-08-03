@@ -472,18 +472,7 @@
     <footer class="animated delay-3">
             &copy; 2025 Sito Realizzato completamente da 0xtonybin  - Tutti i diritti riservati
         </footer>
-
-    <script>
-        // Form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Qui andrebbe il codice per l'invio del form
-            // Per ora simuliamo l'invio con un alert
-            alert('Grazie per il tuo messaggio! Ti risponderemo al più presto.');
-            this.reset();
-        });
-        
+<script>
         // Mobile menu toggle
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mainNav = document.getElementById('main-nav');
@@ -494,44 +483,42 @@
                 ? '<i class="fas fa-times"></i>' 
                 : '<i class="fas fa-bars"></i>';
         });
-    </script>
-    <form id="form-contatti">
-  <input type="text" name="nome" placeholder="Il tuo nome" required />
-  <input type="email" name="email" placeholder="La tua email" required />
-  <textarea name="messaggio" placeholder="Scrivi il tuo messaggio..." required></textarea>
-  <button type="submit">Invia</button>
-</form>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <script>
-  const supabase = supabase.createClient(
-    'https://bvkjigouurogkrgsztyl.supabase.co',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2a2ppZ291dXJvZ2tyZ3N6dHlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQyMzYxNDQsImV4cCI6MjA2OTgxMjE0NH0.9fEzleogdBYQl53lsOaSV39LLWP_JzuDEex_ePhJrro'
-  );
+  // Inizializza Supabase
+  const supabase = supabase.createClient('https://bvkjigouurogkrgsztyl.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2a2ppZ291dXJvZ2tyZ3N6dHlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQyMzYxNDQsImV4cCI6MjA2OTgxMjE0NH0.9fEzleogdBYQl53lsOaSV39LLWP_JzuDEex_ePhJrro');
 
-  document.getElementById('form-contatti').addEventListener('submit', async function(e) {
+  document.getElementById('contactForm').addEventListener('submit', async function (e) {
     e.preventDefault();
-    const nome = e.target.nome.value;
-    const email = e.target.email.value;
-    const messaggio = e.target.messaggio.value;
 
-    const { error } = await supabase
+    // Ottieni i dati dal form
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const subject = document.getElementById('subject').value;
+    const message = document.getElementById('message').value.trim();
+
+    // Invia a Supabase
+    const { data, error } = await supabase
       .from('contatti')
-      .insert([{ nome, email, messaggio }]);
+      .insert([
+        { nome: name, email: email, oggetto: subject, messaggio: message }
+      ]);
 
     if (error) {
-      alert('Errore: ' + error.message);
+      alert('Errore durante l’invio: ' + error.message);
     } else {
-      alert('Messaggio inviato! Grazie per averci scritto.');
-      e.target.reset();
+      alert('Grazie per il tuo messaggio! Ti risponderemo al più presto.');
+      this.reset();
     }
   });
 </script>
+
 
     <script src="main.js"></script>
 </body>
 
 </html>
+
 
 
 
