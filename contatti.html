@@ -495,8 +495,42 @@
                 : '<i class="fas fa-bars"></i>';
         });
     </script>
+    <form id="form-contatti">
+  <input type="text" name="nome" placeholder="Il tuo nome" required />
+  <input type="email" name="email" placeholder="La tua email" required />
+  <textarea name="messaggio" placeholder="Scrivi il tuo messaggio..." required></textarea>
+  <button type="submit">Invia</button>
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script>
+  const supabase = supabase.createClient(
+    'https://TUO_PROGETTO.supabase.co',
+    'CHIAVE_ANNON_PUBBLICA'
+  );
+
+  document.getElementById('form-contatti').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const nome = e.target.nome.value;
+    const email = e.target.email.value;
+    const messaggio = e.target.messaggio.value;
+
+    const { error } = await supabase
+      .from('contatti')
+      .insert([{ nome, email, messaggio }]);
+
+    if (error) {
+      alert('Errore: ' + error.message);
+    } else {
+      alert('Messaggio inviato! Grazie per averci scritto.');
+      e.target.reset();
+    }
+  });
+</script>
+
     <script src="main.js"></script>
 </body>
 
 </html>
+
 
