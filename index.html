@@ -105,6 +105,81 @@
             padding: 10px;
         }
         
+        /* Stili per il popup tutorial */
+        .tutorial-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .tutorial-content {
+            background-color: white;
+            border-radius: 10px;
+            max-width: 90%;
+            width: 500px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        .tutorial-content h2 {
+            color: #FF1A1A;
+            margin-top: 0;
+            text-align: center;
+        }
+        
+        .tutorial-steps {
+            margin: 20px 0;
+        }
+        
+        .tutorial-step {
+            display: flex;
+            margin-bottom: 15px;
+            align-items: flex-start;
+        }
+        
+        .step-number {
+            background-color: #FF1A1A;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        
+        .close-tutorial {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+        }
+        
+        .dont-show-again {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .dont-show-again input {
+            margin-right: 8px;
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .header-container {
@@ -152,10 +227,45 @@
             .mobile-menu-btn {
                 display: block;
             }
+            
+            .tutorial-content {
+                width: 90%;
+                padding: 15px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Popup Tutorial -->
+    <div class="tutorial-popup" id="tutorialPopup">
+        <div class="tutorial-content">
+            <button class="close-tutorial" id="closeTutorial">&times;</button>
+            <h2>Come attivare la modalità desktop su Chrome</h2>
+            <div class="tutorial-steps">
+                <div class="tutorial-step">
+                    <div class="step-number">1</div>
+                    <div>Apri il menu di Chrome (tre puntini in alto a destra)</div>
+                </div>
+                <div class="tutorial-step">
+                    <div class="step-number">2</div>
+                    <div>Scorri verso il basso e seleziona "Sito desktop"</div>
+                </div>
+                <div class="tutorial-step">
+                    <div class="step-number">3</div>
+                    <div>La pagina si ricaricherà in versione desktop</div>
+                </div>
+                <div class="tutorial-step">
+                    <div class="step-number">4</div>
+                    <div>Per tornare alla versione mobile, ripeti i passaggi</div>
+                </div>
+            </div>
+            <div class="dont-show-again">
+                <input type="checkbox" id="dontShowAgain">
+                <label for="dontShowAgain">Non mostrare più questo messaggio</label>
+            </div>
+        </div>
+    </div>
+
     <!-- Header Migliorato -->
     <header>
         <div class="header-container">
@@ -180,7 +290,7 @@
         </div>
     </header>
 
- <!-- Hero Section Spettacolare -->
+    <!-- Hero Section Spettacolare -->
     <section class="hero">
         <div class="hero-content">
             <h1>Benvenuti nel mondo gaming di Chrismagic22</h1>
@@ -357,10 +467,32 @@ Cari fan, sono lieto di presentarvi il mio canale YouTube, Chrismagic22, dedicat
                 ? '<i class="fas fa-times"></i>' 
                 : '<i class="fas fa-bars"></i>';
         });
+        
+        // Tutorial Popup
+        const tutorialPopup = document.getElementById('tutorialPopup');
+        const closeTutorial = document.getElementById('closeTutorial');
+        const dontShowAgain = document.getElementById('dontShowAgain');
+        
+        // Mostra il popup solo su dispositivi mobili e se non è stato disattivato
+        function showTutorialIfNeeded() {
+            if (window.innerWidth <= 768 && !localStorage.getItem('dontShowTutorial')) {
+                tutorialPopup.style.display = 'flex';
+            }
+        }
+        
+        // Chiudi il popup
+        closeTutorial.addEventListener('click', () => {
+            tutorialPopup.style.display = 'none';
+            
+            // Se l'utente ha selezionato "Non mostrare più"
+            if (dontShowAgain.checked) {
+                localStorage.setItem('dontShowTutorial', 'true');
+            }
+        });
+        
+        // Mostra il popup al caricamento della pagina
+        window.addEventListener('load', showTutorialIfNeeded);
     </script>
     <script src="main.js"></script>
-
 </body>
-
 </html>
-
