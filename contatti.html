@@ -448,7 +448,7 @@
                             <i class="fab fa-telegram"></i>
                         </a>
                            <a href="https://linktr.ee/Chrismagic22" target="_blank" class="social-icon facebook">
-                            <i class="fab fa-linktree"></i>
+                            <i class="fas fa-link"></i>
                         </a>
                 </div>
             </div>
@@ -495,7 +495,7 @@
 
   const supabase = createClient(
     'https://aqzbueyqfzfrxtjhktlz.supabase.co',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxemJ1ZXlxZnpmcnh0amhrdGx6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQzMzA0NjcsImV4cCI6MjA2OTkwNjQ2N30.zhY5_32EXuporlzQenRqGwVwelpM-z-STMBTIG2W0w4' 
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxemJ1ZXlxZnpmcnh0amhrdGx6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQzMzA0NjcsImV4cCI6MjA2OTkwNjQ2N30.zhY5_32EXuporlzQenRqGwVwelpM-z-STMBTIG2W0w4'
   );
 
   const form = document.getElementById('contactForm');
@@ -503,30 +503,32 @@
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const name = form.name.value;
-    const email = form.email.value;
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
     const subject = form.subject.value;
-    const message = form.message.value;
+    const message = form.message.value.trim();
 
-    const { error } = await supabase.from('messaggi_contatti').insert([
-      { nome: name, email: email, oggetto: subject, messaggio: message }
-    ]);
+    const { error } = await supabase
+      .from('contatti')  // <-- nome della tua tabella su Supabase
+      .insert([{ name, email, subject, message }]);
 
-    const resultBox = document.createElement('div');
-    resultBox.className = 'form-message';
+    const msgDiv = document.createElement('div');
+    msgDiv.classList.add('form-message');
 
     if (error) {
-      resultBox.textContent = 'Errore durante l\'invio. Riprova più tardi.';
-      resultBox.classList.add('error');
+      msgDiv.textContent = 'Errore nell\'invio. Riprova.';
+      msgDiv.classList.add('error');
     } else {
-      resultBox.textContent = 'Messaggio inviato con successo!';
-      resultBox.classList.add('success');
+      msgDiv.textContent = 'Messaggio inviato con successo!';
+      msgDiv.classList.add('success');
       form.reset();
     }
 
-    // Rimuove messaggi precedenti e mostra quello attuale
-    document.querySelectorAll('.form-message').forEach(el => el.remove());
-    form.appendChild(resultBox);
+    // Rimuove eventuali messaggi precedenti
+    const oldMsg = document.querySelector('.form-message');
+    if (oldMsg) oldMsg.remove();
+
+    form.appendChild(msgDiv);
   });
 </script>
 
@@ -553,6 +555,7 @@
 </body>
 
 </html>
+
 
 
 
