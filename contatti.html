@@ -490,47 +490,6 @@
             </div>
         </div>
     </section>
-<script type="module">
-  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
-
-  const supabase = createClient(
-    'https://aqzbueyqfzfrxtjhktlz.supabase.co',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxemJ1ZXlxZnpmcnh0amhrdGx6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQzMzA0NjcsImV4cCI6MjA2OTkwNjQ2N30.zhY5_32EXuporlzQenRqGwVwelpM-z-STMBTIG2W0w4'
-  );
-
-  const form = document.getElementById('contactForm');
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const name = form.name.value.trim();
-    const email = form.email.value.trim();
-    const subject = form.subject.value;
-    const message = form.message.value.trim();
-
-    const { error } = await supabase
-      .from('contatti')  // <-- nome della tua tabella su Supabase
-      .insert([{ name, email, subject, message }]);
-
-    const msgDiv = document.createElement('div');
-    msgDiv.classList.add('form-message');
-
-    if (error) {
-      msgDiv.textContent = 'Errore nell\'invio. Riprova.';
-      msgDiv.classList.add('error');
-    } else {
-      msgDiv.textContent = 'Messaggio inviato con successo!';
-      msgDiv.classList.add('success');
-      form.reset();
-    }
-
-    // Rimuove eventuali messaggi precedenti
-    const oldMsg = document.querySelector('.form-message');
-    if (oldMsg) oldMsg.remove();
-
-    form.appendChild(msgDiv);
-  });
-</script>
 
     <footer class="animated delay-3">
             &copy; 2025 Sito Realizzato completamente da 0xtonybin  - Tutti i diritti riservati
@@ -548,6 +507,48 @@
                 : '<i class="fas fa-bars"></i>';
         });
 </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script>
+  // Configura Supabase
+  const supabaseUrl = 'https://aqzbueyqfzfrxtjhktlz.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxemJ1ZXlxZnpmcnh0amhrdGx6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQzMzA0NjcsImV4cCI6MjA2OTkwNjQ2N30.zhY5_32EXuporlzQenRqGwVwelpM-z-STMBTIG2W0w4';
+
+  const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+  // Quando il form viene inviato
+  document.getElementById('contactForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const nome = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const oggetto = document.getElementById('subject').value;
+    const messaggio = document.getElementById('message').value;
+
+    const { data, error } = await supabase
+      .from('messaggi') // nome della tabella che hai creato su Supabase
+      .insert([
+        { nome: nome, email: email, oggetto: oggetto, messaggio: messaggio }
+      ]);
+
+    const formMessage = document.createElement('div');
+    formMessage.classList.add('form-message');
+
+    if (error) {
+      formMessage.classList.add('error');
+      formMessage.textContent = 'Errore nell\'invio del messaggio. Riprova.';
+    } else {
+      formMessage.classList.add('success');
+      formMessage.textContent = 'Messaggio inviato con successo!';
+      document.getElementById('contactForm').reset();
+    }
+
+    const form = document.getElementById('contactForm');
+    const existingMessage = form.querySelector('.form-message');
+    if (existingMessage) existingMessage.remove();
+    form.appendChild(formMessage);
+  });
+</script>
+
 
 
 
@@ -555,6 +556,7 @@
 </body>
 
 </html>
+
 
 
 
