@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contatti | ChrisMagic22</title>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script src="https://kit.fontawesome.com/a2d9d5a02b.js" crossorigin="anonymous"></script>
-      <link rel="stylesheet" href="style.css">
-<style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Stili specifici per la pagina contatti */
           header {
             background: rgba(255, 255, 255, 0.98);
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
@@ -357,16 +357,10 @@
 }
 
     </style>
-
-
-
-
-
-
 </head>
 <body>
-
-  <header>
+    <!-- Header -->
+    <header>
         <div class="header-container">
             <a href="index.html" class="logo">
                 <i class="fab fa-youtube"></i>
@@ -389,13 +383,15 @@
         </div>
     </header>
 
- <section class="hero" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/contact-hero.jpg')">
+    <!-- Hero Section -->
+    <section class="hero" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/contact-hero.jpg')">
         <div class="hero-content">
             <h1>Contattami</h1>
             <p>Hai domande, proposte di collaborazione o vuoi semplicemente salutare Chrismagic22? Scrivilo Qui!</p>
         </div>
     </section>
-  <!-- Contact Section -->
+
+    <!-- Contact Section -->
     <section class="contact-section">
         <div class="contact-container">
             <div class="contact-info">
@@ -457,82 +453,107 @@
                         </a>
                 </div>
             </div>
+            
+            <div class="contact-form-container">
+                <h2 class="form-title">Mandami un messaggio</h2>
+                <form id="contactForm" class="contact-form">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Nome</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject" class="form-label">Oggetto</label>
+                        <select id="subject" name="subject" class="form-control" required>
+                            <option value="" disabled selected>Seleziona un'opzione</option>
+                            <option value="collaboration">Proposta di collaborazione</option>
+                            <option value="interview">Richiesta intervista</option>
+                            <option value="fan">Messaggio da fan</option>
+                            <option value="business">Proposta commerciale</option>
+                            <option value="other">Altro</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message" class="form-label">Messaggio</label>
+                        <textarea id="message" name="message" class="form-control" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Invia messaggio
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
 
-    <div class="contact-form-container">
-      <h2 class="form-title">Mandami un messaggio</h2>
-      <form id="contactForm" class="contact-form">
-        <div class="form-group">
-          <label for="name" class="form-label">Nome</label>
-          <input type="text" id="name" name="name" class="form-control" required>
-        </div>
-        <div class="form-group">
-          <label for="email" class="form-label">Email</label>
-          <input type="email" id="email" name="email" class="form-control" required>
-        </div>
-        <div class="form-group">
-          <label for="subject" class="form-label">Oggetto</label>
-          <select id="subject" name="subject" class="form-control" required>
-            <option value="" disabled selected>Seleziona un'opzione</option>
-            <option value="collaboration">Proposta di collaborazione</option>
-            <option value="interview">Richiesta intervista</option>
-            <option value="fan">Messaggio da fan</option>
-            <option value="business">Proposta commerciale</option>
-            <option value="other">Altro</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="message" class="form-label">Messaggio</label>
-          <textarea id="message" name="message" class="form-control" required></textarea>
-        </div>
-        <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> Invia messaggio</button>
-        <div id="formMessage" class="form-message" style="display: none;"></div>
-      </form>
-    </div>
-  </section>
+    <footer class="animated delay-3">
+            &copy; 2025 Sito Realizzato completamente da 0xtonybin  - Tutti i diritti riservati
+        </footer>
+   
+<script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mainNav = document.getElementById('main-nav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+</script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script>
+  // Configura Supabase
+  const supabaseUrl = 'https://aqzbueyqfzfrxtjhktlz.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxemJ1ZXlxZnpmcnh0amhrdGx6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQzMzA0NjcsImV4cCI6MjA2OTkwNjQ2N30.zhY5_32EXuporlzQenRqGwVwelpM-z-STMBTIG2W0w4';
 
-  <footer class="footer">
-    <p>&copy; 2025 Sito Realizzato completamente da 0xtonybin  - Tutti i diritti riservati</p>
-  </footer>
+  const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <script>
-    const supabase = supabase.createClient(
-      'https://aqzbueyqfzfrxtjhktlz.supabase.co',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxemJ1ZXlxZnpmcnh0amhrdGx6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQzMzA0NjcsImV4cCI6MjA2OTkwNjQ2N30.zhY5_32EXuporlzQenRqGwVwelpM-z-STMBTIG2W0w4'
-    );
+  // Quando il form viene inviato
+  document.getElementById('contactForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const nome = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const oggetto = document.getElementById('subject').value;
+    const messaggio = document.getElementById('message').value;
+
+    const { data, error } = await supabase
+      .from('messaggi') // nome della tabella che hai creato su Supabase
+      .insert([
+        { nome: nome, email: email, oggetto: oggetto, messaggio: messaggio }
+      ]);
+
+    const formMessage = document.createElement('div');
+    formMessage.classList.add('form-message');
+
+    if (error) {
+      formMessage.classList.add('error');
+      formMessage.textContent = 'Errore nell\'invio del messaggio. Riprova.';
+    } else {
+      formMessage.classList.add('success');
+      formMessage.textContent = 'Messaggio inviato con successo!';
+      document.getElementById('contactForm').reset();
+    }
 
     const form = document.getElementById('contactForm');
-    const messageBox = document.getElementById('formMessage');
+    const existingMessage = form.querySelector('.form-message');
+    if (existingMessage) existingMessage.remove();
+    form.appendChild(formMessage);
+  });
+</script>
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
 
-      const name = document.getElementById('nome').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const subject = document.getElementById('oggetto').value.trim();
-      const message = document.getElementById('messaggio').value.trim();
 
-      const { error } = await supabase.from('messaggi').insert([{
-        nome: name,
-        email: email,
-        oggetto: subject,
-        messaggio: message,
-        data: new Date().toISOString()
-      }]);
 
-      if (error) {
-        messageBox.textContent = "Errore durante l'invio del messaggio. Riprova.";
-        messageBox.className = "form-message error";
-      } else {
-        messageBox.textContent = "Messaggio inviato con successo!";
-        messageBox.className = "form-message success";
-        form.reset();
-      }
-
-      messageBox.style.display = "block";
-    });
-  </script>
-
+    <script src="main.js"></script>
 </body>
-</html>
 
+</html>
