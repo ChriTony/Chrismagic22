@@ -507,10 +507,10 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      const name = document.getElementById('name').value.trim();
+      const name = document.getElementById('nome').value.trim();
       const email = document.getElementById('email').value.trim();
-      const subject = document.getElementById('subject').value.trim();
-      const message = document.getElementById('message').value.trim();
+      const subject = document.getElementById('oggetto').value.trim();
+      const message = document.getElementById('messaggio').value.trim();
 
       const { error } = await supabase.from('messaggi').insert([{
         nome: name,
@@ -535,3 +535,4 @@
 
 </body>
 </html>
+
